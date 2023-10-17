@@ -49,4 +49,41 @@ describe('wallet tests units', () => {
       wallet.deposit(-250);
     }).toThrowError('deposit that is greater than 0.');
   });
+
+  it('should possible deposit the money', () => {
+    const wallet = new Wallet({
+      agency: '001',
+      agency_id: '001',
+      typeAccount: 'poupanca',
+      customer_id: 'id',
+    });
+
+    wallet.deposit(500);
+    wallet.withdraw(200);
+    expect(wallet.balance).toEqual(300);
+  });
+
+  it('should throw an error if withdraw an invalid.', () => {
+    const wallet = new Wallet({
+      agency: '001',
+      agency_id: '001',
+      typeAccount: 'poupanca',
+      customer_id: 'id',
+    });
+    expect(() => {
+      wallet.withdraw(-250);
+    }).toThrowError('withdraw that is greater than 0.');
+  });
+
+  it('should throw an error if trying to withdraw an amount greater than the account.', () => {
+    const wallet = new Wallet({
+      agency: '001',
+      agency_id: '001',
+      typeAccount: 'poupanca',
+      customer_id: 'id',
+    });
+    expect(() => {
+      wallet.withdraw(350);
+    }).toThrowError('insufficient balance for this withdrawal.');
+  });
 });

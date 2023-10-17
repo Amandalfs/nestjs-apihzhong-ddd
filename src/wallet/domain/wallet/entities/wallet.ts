@@ -115,4 +115,14 @@ export class Wallet {
     }
     this._balance += deposit;
   }
+
+  withdraw(withdraw: number) {
+    if (withdraw <= 0 || isNaN(Number(withdraw))) {
+      throw new Error('withdraw that is greater than 0.');
+    }
+    if (withdraw > this.balance) {
+      throw new Error('insufficient balance for this withdrawal.');
+    }
+    this._balance -= withdraw;
+  }
 }
