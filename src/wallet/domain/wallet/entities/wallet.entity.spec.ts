@@ -25,4 +25,28 @@ describe('wallet tests units', () => {
     expect(wallet.limitWithdraw).toEqual(300);
     expect(wallet.limitWithdrawByDaily).toEqual(1500);
   });
+
+  it('should possible deposit the money', () => {
+    const wallet = new Wallet({
+      agency: '001',
+      agency_id: '001',
+      typeAccount: 'poupanca',
+      customer_id: 'id',
+    });
+
+    wallet.deposit(250);
+    expect(wallet.balance).toEqual(250);
+  });
+
+  it('should throw an error if sending an invalid deposit.', () => {
+    const wallet = new Wallet({
+      agency: '001',
+      agency_id: '001',
+      typeAccount: 'poupanca',
+      customer_id: 'id',
+    });
+    expect(() => {
+      wallet.deposit(-250);
+    }).toThrowError('deposit that is greater than 0.');
+  });
 });

@@ -108,4 +108,11 @@ export class Wallet {
   get limitWithdrawByDaily(): number {
     return this._limitWithdrawByDaily.limit;
   }
+
+  deposit(deposit: number) {
+    if (deposit <= 0 || isNaN(Number(deposit))) {
+      throw new Error('deposit that is greater than 0.');
+    }
+    this._balance += deposit;
+  }
 }
