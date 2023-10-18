@@ -23,7 +23,7 @@ export class Key {
   }
 
   get id(): string {
-    return this.id;
+    return this._id;
   }
 
   get type(): KeyType {
