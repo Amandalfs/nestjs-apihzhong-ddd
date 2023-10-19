@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { LimitWithdraw } from '../value-objects/limitWithdraw.value-object';
 import { LimitWithdrawByDaily } from './../value-objects/limitWithdrawByDaily.object-value';
-import { Key, KeyType } from './key.entity';
+import { Key } from './key.entity';
 
 export class Wallet {
   private _id: string;
@@ -9,7 +9,7 @@ export class Wallet {
   private _agency: string;
   private _agency_id: string;
   private _typeAccount: 'poupanca' | 'corrente' | 'empresarial';
-  private _keys: Key[] = [];
+  private _keys: Key = new Key({});
   private _balance: number = 0;
 
   private _limitWithdraw: LimitWithdraw;
@@ -24,7 +24,7 @@ export class Wallet {
       balance?: number;
       limitWithdraw?: LimitWithdraw;
       limitWithdrawByDaily?: LimitWithdrawByDaily;
-      keys?: Key[];
+      keys?: Key;
     },
     id?: string,
   ) {
@@ -34,7 +34,7 @@ export class Wallet {
     this._typeAccount = props.typeAccount;
     this._id = id ?? randomUUID();
     this._balance = props.balance ?? this._balance;
-    this._keys = props.keys ?? [];
+    this._keys = props.keys ?? new Key({});
 
     if (!props.limitWithdraw) {
       switch (this._typeAccount) {
@@ -113,6 +113,10 @@ export class Wallet {
     return this._limitWithdrawByDaily.limit;
   }
 
+  get keys(): Key {
+    return this._keys;
+  }
+
   deposit(deposit: number) {
     if (deposit <= 0 || isNaN(Number(deposit))) {
       throw new Error('deposit that is greater than 0.');
@@ -128,50 +132,5 @@ export class Wallet {
       throw new Error('insufficient balance for this withdrawal.');
     }
     this._balance -= withdraw;
-  }
-
-  addKey(props: { value?: string; type: KeyType }) {
-    if (props.type === 'email') {
-      const alreadyExistKey = this._keys.find((key) => {
-        return key.type === 'email';
-      });
-
-      if (alreadyExistKey) {
-        throw new Error('There is already a key with the email type.');
-      }
-      return this._keys.push(
-        new Key({
-          value: props.value,
-          type: 'email',
-        }),
-      );
-    }
-
-    if (props.type === 'cpf') {
-      const alreadyExistKey = this._keys.find((key) => {
-        return key.type === 'cpf';
-      });
-
-      if (alreadyExistKey) {
-        throw new Error('There is already a key with the cpf type.');
-      }
-
-      return this._keys.push(
-        new Key({
-          value: props.value,
-          type: 'email',
-        }),
-      );
-    }
-
-    if (props.type === 'random') {
-      const keyValue = randomUUID();
-      return this._keys.push(
-        new Key({
-          value: keyValue,
-          type: 'email',
-        }),
-      );
-    }
   }
 }

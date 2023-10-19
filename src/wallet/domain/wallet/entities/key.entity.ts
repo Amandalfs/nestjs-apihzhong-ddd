@@ -4,33 +4,63 @@ export type KeyType = 'email' | 'random' | 'cpf';
 
 export class Key {
   private _id: string;
-  private _value: string;
-  private _type: KeyType;
+  private _keyEmail: string | null;
+  private _keyRandom: string | null;
+  private _keyCpf: string | null;
 
-  constructor(props: { value: string; type: KeyType }, id?: string) {
+  constructor(
+    props: Partial<{ keyEmail: string; keyRandom: string; keyCpf: string }>,
+    id?: string,
+  ) {
     this._id = id ?? randomUUID();
-    this._type = props.type;
-    this._value = props.value;
-    this.validate();
+    this._keyCpf = props.keyCpf ?? null;
+    this._keyEmail = props.keyEmail ?? null;
+    this._keyRandom = props.keyRandom ?? null;
   }
 
-  validate(): boolean {
-    if (this._type === null) {
-      throw new Error('type is mandatory');
+  addKeyEmail(email: string): void {
+    this._keyEmail = email;
+    if (this._keyEmail.length === 0) {
+      throw new Error('param email is mandatory');
     }
+  }
 
-    return true;
+  deleteKeyEmail(): void {
+    this._keyEmail = null;
+  }
+
+  addKeyCpf(cpf: string): void {
+    this._keyCpf = cpf;
+    if (this._keyCpf.length === 0) {
+      throw new Error('param cpf is mandatory');
+    }
+  }
+
+  deleteKeyCpf(): void {
+    this._keyCpf = null;
+  }
+
+  generateKeyRandom(): void {
+    this._keyRandom = randomUUID();
+  }
+
+  deleteKeyRandom(): void {
+    this._keyRandom = null;
   }
 
   get id(): string {
     return this._id;
   }
 
-  get type(): KeyType {
-    return this._type;
+  get keyEmail(): string {
+    return this._keyEmail;
   }
 
-  get value(): string {
-    return this._value;
+  get keyCpf(): string {
+    return this._keyCpf;
+  }
+
+  get keyRandom(): string {
+    return this._keyRandom;
   }
 }
