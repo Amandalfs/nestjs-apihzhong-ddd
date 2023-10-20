@@ -93,6 +93,10 @@ export class Wallet {
     }
   }
 
+  get id(): string {
+    return this._id;
+  }
+
   get balance(): number {
     return this._balance;
   }
@@ -101,7 +105,7 @@ export class Wallet {
     return this._agency;
   }
 
-  get typeAccount(): string {
+  get typeAccount(): 'poupanca' | 'corrente' | 'empresarial' {
     return this._typeAccount;
   }
 
