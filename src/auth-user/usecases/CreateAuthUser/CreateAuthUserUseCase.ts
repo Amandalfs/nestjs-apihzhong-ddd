@@ -25,6 +25,8 @@ export class CreateAuthUserUseCase {
       customerId: input.customerId,
     });
 
+    await this.authUserRepository.create(authUser);
+
     return {
       email: authUser.email,
       id: authUser.id,
