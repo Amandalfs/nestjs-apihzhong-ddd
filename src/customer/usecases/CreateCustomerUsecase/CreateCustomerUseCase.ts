@@ -40,6 +40,8 @@ export class CreateCustomerUseCase {
       username: input.username,
     });
 
+    await this.customerRepository.create(customer);
+
     return {
       id: customer.id,
       name: customer.name,
