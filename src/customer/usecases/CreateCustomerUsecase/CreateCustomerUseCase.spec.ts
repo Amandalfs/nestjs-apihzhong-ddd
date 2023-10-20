@@ -1,6 +1,6 @@
 import { MakeCustomer } from '../../domain/factories/makeCustomer';
 import { CustomerRepositoryInterface } from '../../domain/repositories/repository-customer';
-import { CreateCustomerUseCase } from './createCustomerUseCase';
+import { CreateCustomerUseCase } from './CreateCustomerUseCase';
 
 interface TypeSuit {
   customerRepository: CustomerRepositoryInterface;
