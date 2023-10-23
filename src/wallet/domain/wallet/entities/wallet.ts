@@ -97,6 +97,10 @@ export class Wallet {
     return this._id;
   }
 
+  get customerId(): string {
+    return this._customer_id;
+  }
+
   get balance(): number {
     return this._balance;
   }
