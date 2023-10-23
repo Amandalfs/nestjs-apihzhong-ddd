@@ -113,12 +113,12 @@ export class Wallet {
     return this._typeAccount;
   }
 
-  get limitWithdraw(): number {
-    return this._limitWithdraw.limit;
+  get limitWithdraw(): LimitWithdraw {
+    return this._limitWithdraw;
   }
 
-  get limitWithdrawByDaily(): number {
-    return this._limitWithdrawByDaily.limit;
+  get limitWithdrawByDaily() {
+    return this._limitWithdrawByDaily;
   }
 
   get keys(): Key {

@@ -22,8 +22,8 @@ describe('wallet tests units', () => {
       customer_id: 'id',
     });
 
-    expect(wallet.limitWithdraw).toEqual(300);
-    expect(wallet.limitWithdrawByDaily).toEqual(1500);
+    expect(wallet.limitWithdraw.limit).toEqual(300);
+    expect(wallet.limitWithdrawByDaily.limit).toEqual(1500);
   });
 
   it('should possible deposit the money', () => {
