@@ -37,57 +37,13 @@ export class Wallet {
     this._keys = props.keys ?? new Key({});
 
     if (!props.limitWithdraw) {
-      switch (this._typeAccount) {
-        case 'poupanca':
-          this._limitWithdraw = new LimitWithdraw({
-            limit: 300,
-          });
-          break;
-        case 'corrente':
-          this._limitWithdraw = new LimitWithdraw({
-            limit: 800,
-          });
-        case 'empresarial':
-          this._limitWithdraw = new LimitWithdraw({
-            limit: 1500,
-          });
-        default:
-          break;
-      }
+      this.generateLimitWithdraw();
     } else {
       this._limitWithdraw = props.limitWithdraw;
     }
 
     if (!props.limitWithdrawByDaily) {
-      switch (this._typeAccount) {
-        case 'poupanca':
-          this._limitWithdrawByDaily = new LimitWithdrawByDaily({
-            currentLimit: {
-              value: 0,
-              date: null,
-            },
-            limit: 1500,
-          });
-          break;
-        case 'corrente':
-          this._limitWithdrawByDaily = new LimitWithdrawByDaily({
-            currentLimit: {
-              value: 0,
-              date: null,
-            },
-            limit: 4000,
-          });
-        case 'empresarial':
-          this._limitWithdrawByDaily = new LimitWithdrawByDaily({
-            currentLimit: {
-              value: 0,
-              date: null,
-            },
-            limit: 6000,
-          });
-        default:
-          break;
-      }
+      this.generateLimitWithdraByDaily();
     } else {
       this._limitWithdrawByDaily = props.limitWithdrawByDaily;
     }
@@ -117,8 +73,60 @@ export class Wallet {
     return this._limitWithdraw;
   }
 
+  generateLimitWithdraw() {
+    switch (this._typeAccount) {
+      case 'poupanca':
+        this._limitWithdraw = new LimitWithdraw({
+          limit: 300,
+        });
+        break;
+      case 'corrente':
+        this._limitWithdraw = new LimitWithdraw({
+          limit: 800,
+        });
+      case 'empresarial':
+        this._limitWithdraw = new LimitWithdraw({
+          limit: 1500,
+        });
+      default:
+        break;
+    }
+  }
+
   get limitWithdrawByDaily() {
     return this._limitWithdrawByDaily;
+  }
+
+  generateLimitWithdraByDaily() {
+    switch (this._typeAccount) {
+      case 'poupanca':
+        this._limitWithdrawByDaily = new LimitWithdrawByDaily({
+          currentLimit: {
+            value: 0,
+            date: null,
+          },
+          limit: 1500,
+        });
+        break;
+      case 'corrente':
+        this._limitWithdrawByDaily = new LimitWithdrawByDaily({
+          currentLimit: {
+            value: 0,
+            date: null,
+          },
+          limit: 4000,
+        });
+      case 'empresarial':
+        this._limitWithdrawByDaily = new LimitWithdrawByDaily({
+          currentLimit: {
+            value: 0,
+            date: null,
+          },
+          limit: 6000,
+        });
+      default:
+        break;
+    }
   }
 
   get keys(): Key {
