@@ -2,6 +2,8 @@ import { randomUUID } from 'crypto';
 import { LimitWithdraw } from '../value-objects/limitWithdraw.value-object';
 import { LimitWithdrawByDaily } from './../value-objects/limitWithdrawByDaily.object-value';
 import { Key } from './key.entity';
+import { LimitSending } from '../value-objects/limitSending.value-object';
+import { LimitSendingByDaily } from '../value-objects/limitSendingByDaily.object-value';
 
 export class Wallet {
   private _id: string;
@@ -15,6 +17,9 @@ export class Wallet {
   private _limitWithdraw: LimitWithdraw;
   private _limitWithdrawByDaily: LimitWithdrawByDaily;
 
+  private _limitSending: LimitSending;
+  private _limitSendingByDaily: LimitSendingByDaily;
+
   constructor(
     props: {
       agency: string;
@@ -24,6 +29,8 @@ export class Wallet {
       balance?: number;
       limitWithdraw?: LimitWithdraw;
       limitWithdrawByDaily?: LimitWithdrawByDaily;
+      limitSending?: LimitSending;
+      limitSendingByDaily?: LimitSendingByDaily;
       keys?: Key;
     },
     id?: string,
@@ -43,9 +50,21 @@ export class Wallet {
     }
 
     if (!props.limitWithdrawByDaily) {
-      this.generateLimitWithdraByDaily();
+      this.generateLimitWithdrawByDaily();
     } else {
       this._limitWithdrawByDaily = props.limitWithdrawByDaily;
+    }
+
+    if (!props.limitSending) {
+      this.generateLimitSending();
+    } else {
+      this._limitSending = props.limitSending;
+    }
+
+    if (!props.limitSendingByDaily) {
+      this.generateLimitSendingByDaily();
+    } else {
+      this._limitSendingByDaily = props.limitSendingByDaily;
     }
   }
 
@@ -97,7 +116,7 @@ export class Wallet {
     return this._limitWithdrawByDaily;
   }
 
-  generateLimitWithdraByDaily() {
+  generateLimitWithdrawByDaily() {
     switch (this._typeAccount) {
       case 'poupanca':
         this._limitWithdrawByDaily = new LimitWithdrawByDaily({
@@ -118,6 +137,66 @@ export class Wallet {
         });
       case 'empresarial':
         this._limitWithdrawByDaily = new LimitWithdrawByDaily({
+          currentLimit: {
+            value: 0,
+            date: null,
+          },
+          limit: 6000,
+        });
+      default:
+        break;
+    }
+  }
+
+  get limitSending(): LimitSending {
+    return this._limitSending;
+  }
+
+  generateLimitSending(): void {
+    switch (this._typeAccount) {
+      case 'poupanca':
+        this._limitSending = new LimitSending({
+          limit: 300,
+        });
+        break;
+      case 'corrente':
+        this._limitSending = new LimitSending({
+          limit: 800,
+        });
+      case 'empresarial':
+        this._limitSending = new LimitSending({
+          limit: 1500,
+        });
+      default:
+        break;
+    }
+  }
+
+  get limitSendingByDaily(): LimitSendingByDaily {
+    return this._limitSendingByDaily;
+  }
+
+  generateLimitSendingByDaily() {
+    switch (this._typeAccount) {
+      case 'poupanca':
+        this._limitSendingByDaily = new LimitSendingByDaily({
+          currentLimit: {
+            value: 0,
+            date: null,
+          },
+          limit: 1500,
+        });
+        break;
+      case 'corrente':
+        this._limitSendingByDaily = new LimitSendingByDaily({
+          currentLimit: {
+            value: 0,
+            date: null,
+          },
+          limit: 4000,
+        });
+      case 'empresarial':
+        this._limitSendingByDaily = new LimitSendingByDaily({
           currentLimit: {
             value: 0,
             date: null,
