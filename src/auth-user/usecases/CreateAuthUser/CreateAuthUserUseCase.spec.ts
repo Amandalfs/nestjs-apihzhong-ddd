@@ -44,6 +44,7 @@ describe('create auth user use case', () => {
         email: 'email@email.com',
         password: '12345678',
         customerId: 'id',
+        hash: true,
       }),
     );
     const input = {

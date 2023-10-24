@@ -23,6 +23,7 @@ export class CreateAuthUserUseCase {
       email: input.email,
       password: input.password,
       customerId: input.customerId,
+      hash: true,
     });
 
     await this.authUserRepository.create(authUser);

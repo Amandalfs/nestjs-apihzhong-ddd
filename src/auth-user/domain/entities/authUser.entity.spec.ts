@@ -6,6 +6,7 @@ describe('authUser entity tests units', () => {
       email: 'test@test.com',
       customerId: '548vdsfbsbs',
       password: '12345678',
+      hash: true,
     });
     expect(authUser.email).toEqual('test@test.com');
     expect(authUser.customer_id).toEqual('548vdsfbsbs');
@@ -19,8 +20,9 @@ describe('authUser entity tests units', () => {
         email: '',
         customerId: '548vdsfbsbs',
         password: '12345678',
+        hash: true,
       });
-    }).toThrowError('name is mandatory');
+    }).toThrowError('email is mandatory');
   });
 
   it('should be possible throw error with the mandatory password error.', () => {
@@ -29,6 +31,7 @@ describe('authUser entity tests units', () => {
         email: 'test@test.com',
         customerId: '548vdsfbsbs',
         password: '',
+        hash: true,
       });
     }).toThrowError('password is mandatory');
   });
@@ -38,6 +41,7 @@ describe('authUser entity tests units', () => {
       email: 'test@test.com',
       customerId: '548vdsfbsbs',
       password: '12345678',
+      hash: true,
     });
     expect(authUser.checkPassword('12345678')).toEqual(true);
   });

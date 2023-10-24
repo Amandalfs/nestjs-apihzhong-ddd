@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { hashSync, compareSync } from 'bcrypt';
 
-type Rules = 'member' | 'admin-customer' | 'admin-suport' | 'admin-wallet';
+type Rules = 'member' | 'adminCustomer' | 'adminSuport' | 'adminWallet';
 
 export class AuthUser {
   private _id: string;
@@ -16,12 +16,17 @@ export class AuthUser {
       email: string;
       password: string;
       rule?: Rules;
+      hash: boolean;
     },
     id?: string,
   ) {
     this._customer_id = props.customerId;
     this._email = props.email;
-    this._password = props.password ? hashSync(props.password, 8) : '';
+    if (props.hash) {
+      this._password = props.password ? hashSync(props.password, 8) : '';
+    } else {
+      this._password = props.password ? props.password : '';
+    }
     this._id = id ?? randomUUID();
     this._rule = props.rule ?? 'member';
     this.validate();
@@ -43,9 +48,13 @@ export class AuthUser {
     return this._rule;
   }
 
+  get password(): string {
+    return this._password;
+  }
+
   validate(): boolean {
     if (this._email.length === 0) {
-      throw new Error('name is mandatory');
+      throw new Error('email is mandatory');
     }
 
     if (this._password.length === 0) {
