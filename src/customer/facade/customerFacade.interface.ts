@@ -5,6 +5,6 @@ interface OutputfindByIdDto {
   cpf: string;
 }
 
-export interface CustomerFacadeInterface {
-  findById(id: string): Promise<OutputfindByIdDto>;
+export abstract class CustomerFacadeInterface {
+  abstract findById(id: string): Promise<OutputfindByIdDto>;
 }

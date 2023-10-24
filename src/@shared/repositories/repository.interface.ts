@@ -1,6 +1,6 @@
-export interface RepositoryInterface<T> {
-  create(entity: T): Promise<void>;
-  update(entity: T): Promise<void>;
-  findById(id: string): Promise<T>;
-  findAll(): Promise<T[]>;
+export abstract class RepositoryInterface<T> {
+  abstract create(entity: T): Promise<void>;
+  abstract update(entity: T): Promise<void>;
+  abstract findById(id: string): Promise<T>;
+  abstract findAll(): Promise<T[]>;
 }
