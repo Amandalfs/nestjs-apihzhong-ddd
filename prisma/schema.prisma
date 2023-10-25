@@ -35,3 +35,9 @@ model Customer {
   active   Boolean   @default(false)
   AuthUser AuthUser?
 }
+
+model Agency {
+  id     String @id
+  name   String
+  number String @unique
+}

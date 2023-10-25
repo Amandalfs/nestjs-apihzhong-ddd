@@ -4,6 +4,8 @@ import { AuthUserRepository } from './auth-user/prisma.auth-user.repository';
 import { CustomerRepository } from './customer.repository/customer.repository';
 import { AuthUserRepositoryInterface } from '@/auth-user/domain/repositories/authUserRepositoryInterface';
 import { CustomerRepositoryInterface } from '@/customer/domain/repositories/repository-customer';
+import { AgencyRepository } from './agency.repository/agency.repository';
+import { AgencyRepositoryInterface } from '@/wallet/domain/agency/repositories/agency.repository.interface';
 
 @Module({
   imports: [],
@@ -17,7 +19,11 @@ import { CustomerRepositoryInterface } from '@/customer/domain/repositories/repo
       provide: CustomerRepositoryInterface,
       useClass: CustomerRepository,
     },
+    {
+      provide: AgencyRepositoryInterface,
+      useClass: AgencyRepository,
+    },
   ],
-  exports: [AuthUserRepositoryInterface, CustomerRepositoryInterface],
+  exports: [AuthUserRepositoryInterface],
 })
 export class InfraModule {}
