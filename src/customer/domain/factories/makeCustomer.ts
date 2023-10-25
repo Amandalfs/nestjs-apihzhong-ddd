@@ -15,6 +15,7 @@ interface InputMakeCustomerWithIdDTO {
   email: string;
   name: string;
   username: string;
+  active?: boolean;
 }
 
 export class MakeCustomer {
@@ -24,6 +25,7 @@ export class MakeCustomer {
     name,
     username,
     id,
+    active,
   }: InputMakeCustomerWithIdDTO) {
     const cpfNumbers = cpf
       .replaceAll('.', '')
@@ -49,6 +51,7 @@ export class MakeCustomer {
         username,
         cpf: new Cpf(cpfNumbers, cpfCheckDigits),
         email: new Email(email),
+        active,
       },
       id,
     );
