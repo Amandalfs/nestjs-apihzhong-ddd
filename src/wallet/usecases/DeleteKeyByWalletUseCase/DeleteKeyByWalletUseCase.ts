@@ -3,7 +3,9 @@ import {
   InputDeleteKeyByWalletUseCaseDto,
   OutputDeleteKeyByWalletUseCaseDto,
 } from './DeleteKeyByWalletUseCase.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class DeleteKeyByWalletUseCase {
   constructor(private walletRepository: WalletRepositoryInterface) {}
 

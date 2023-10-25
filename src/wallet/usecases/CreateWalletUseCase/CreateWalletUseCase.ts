@@ -4,7 +4,9 @@ import {
   OutputCreateWalletUseCaseDto,
 } from './CreateWalletUseCase.dto';
 import { Wallet } from './../../domain/wallet/entities/wallet';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class CreateWalletUseCase {
   constructor(private walletRepository: WalletRepositoryInterface) {}
 

@@ -5,7 +5,9 @@ import {
 } from './DepositBalanceUseCase.dto';
 import { Extract } from './../../domain/wallet/entities/extract.entity';
 import { ExtractRepositoryInterface } from './../../domain/wallet/repositories/extractRepository';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class DepositBalanceUseCase {
   constructor(
     private walletRepository: WalletRepositoryInterface,

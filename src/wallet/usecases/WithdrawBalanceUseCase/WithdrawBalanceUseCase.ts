@@ -5,7 +5,9 @@ import {
   InputWithdrawBalanceUseCaseDto,
   OutputWithdrawBalanceUseCaseDto,
 } from './WithdrawBalanceUseCase.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class WithdrawBalanceUseCase {
   constructor(
     private walletRepository: WalletRepositoryInterface,

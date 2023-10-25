@@ -5,7 +5,9 @@ import {
   OutputSendingBalanceUseCaseDto,
 } from './SendingBalanceUseCase.dto';
 import { Extract } from './../../domain/wallet/entities/extract.entity';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class SendingBalanceUseCase {
   constructor(
     private walletRepository: WalletRepositoryInterface,
