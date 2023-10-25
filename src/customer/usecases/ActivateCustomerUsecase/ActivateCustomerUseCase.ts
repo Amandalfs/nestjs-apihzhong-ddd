@@ -1,9 +1,11 @@
+import { Injectable } from '@nestjs/common';
 import { CustomerRepositoryInterface } from './../../domain/repositories/repository-customer';
 import {
   InputActivateCustomerUseCaseDto,
   OutputActivateCustomerUseCaseDto,
 } from './ActivateCustomerUseCase.dto';
 
+@Injectable()
 export class ActivateCustomerUseCase {
   constructor(private customerRepository: CustomerRepositoryInterface) {}
 

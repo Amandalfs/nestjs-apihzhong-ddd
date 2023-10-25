@@ -3,7 +3,9 @@ import {
   InputFindCustomerUseCaseDto,
   OutputFindCustomerUseCaeDto,
 } from './FindCustomerUseCase.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class FindCustomerUseCase {
   constructor(private customerRepository: CustomerRepositoryInterface) {}
 

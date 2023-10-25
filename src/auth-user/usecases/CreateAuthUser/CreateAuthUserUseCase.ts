@@ -4,7 +4,9 @@ import {
   InputCreateAuthUserUseCaseDto,
   OutputCreateAuthUserUseCaseDto,
 } from './CreateAuthUserUseCase.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class CreateAuthUserUseCase {
   constructor(private authUserRepository: AuthUserRepositoryInterface) {}
 

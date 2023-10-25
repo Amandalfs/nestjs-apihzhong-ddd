@@ -4,6 +4,7 @@ import { AuthUserModule } from './auth-user/auth-user.module';
 import { WalletModule } from './wallet/wallet.module';
 import { InfraModule } from './infra/infra.module';
 import { ConfigModule } from '@nestjs/config';
+import { HttpsModule } from './https/https.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    HttpsModule,
   ],
   controllers: [],
   providers: [],

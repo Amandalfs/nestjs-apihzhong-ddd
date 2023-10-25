@@ -4,7 +4,9 @@ import {
   InputCreateCustomerDto,
   OutputCreateCustomerDto,
 } from './CreateCustomerUseCase.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class CreateCustomerUseCase {
   constructor(private customerRepository: CustomerRepositoryInterface) {}
 
