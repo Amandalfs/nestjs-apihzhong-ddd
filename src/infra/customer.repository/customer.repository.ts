@@ -4,7 +4,7 @@ import { CustomerRepositoryInterface } from '@/customer/domain/repositories/repo
 import { Customer } from '@/customer/domain/entities/customer.entity';
 
 @Injectable()
-export class CustomerRepositoryService implements CustomerRepositoryInterface {
+export class CustomerRepository implements CustomerRepositoryInterface {
   constructor(private prisma: PrismaService) {}
 
   create(entity: Customer): Promise<void> {

@@ -29,6 +29,7 @@ model AuthUser {
 model Customer {
   id       String    @id
   username String
+  name     String
   cpf      String
   email    String
   active   Boolean   @default(false)
