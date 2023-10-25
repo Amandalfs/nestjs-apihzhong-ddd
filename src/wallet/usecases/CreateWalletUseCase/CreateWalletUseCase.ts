@@ -1,4 +1,4 @@
-import { WalletRepositoryInterface } from 'src/wallet/domain/wallet/repositories/walletRepository';
+import { WalletRepositoryInterface } from '../../domain/wallet/repositories/walletRepository';
 import {
   InputCreateWalletUseCaseDto,
   OutputCreateWalletUseCaseDto,

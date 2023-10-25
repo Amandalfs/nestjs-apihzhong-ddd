@@ -1,4 +1,4 @@
-import { CustomerRepositoryInterface } from 'src/customer/domain/repositories/repository-customer';
+import { CustomerRepositoryInterface } from '../../domain/repositories/repository-customer';
 import {
   InputFindCustomerUseCaseDto,
   OutputFindCustomerUseCaeDto,
