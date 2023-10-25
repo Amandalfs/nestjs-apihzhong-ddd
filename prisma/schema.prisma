@@ -18,8 +18,19 @@ enum RulesAuth {
 }
 
 model AuthUser {
+  id         String    @id
+  email      String    @unique
+  password   String
+  rules      RulesAuth @default(member)
+  customerOn Customer? @relation(fields: [customerId], references: [id])
+  customerId String?   @unique
+}
+
+model Customer {
   id       String    @id
-  email    String    @unique
-  password String
-  rules    RulesAuth @default(member)
+  username String
+  cpf      String
+  email    String
+  active   Boolean   @default(false)
+  AuthUser AuthUser?
 }
