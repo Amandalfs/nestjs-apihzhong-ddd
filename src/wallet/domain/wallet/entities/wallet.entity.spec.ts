@@ -42,6 +42,20 @@ describe('wallet tests units', () => {
     expect(wallet.limitSendingByDaily.limit).toEqual(4000);
   });
 
+  it('should possible generate limits at account to business', () => {
+    const wallet = new Wallet({
+      agency: '001',
+      agency_id: '001',
+      typeAccount: 'empresarial',
+      customer_id: 'id',
+    });
+
+    expect(wallet.limitWithdraw.limit).toEqual(1500);
+    expect(wallet.limitWithdrawByDaily.limit).toEqual(6000);
+    expect(wallet.limitSending.limit).toEqual(1500);
+    expect(wallet.limitSendingByDaily.limit).toEqual(6000);
+  });
+
   it('should possible deposit the money', () => {
     const wallet = new Wallet({
       agency: '001',
