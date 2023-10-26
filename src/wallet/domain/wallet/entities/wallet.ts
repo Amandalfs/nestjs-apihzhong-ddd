@@ -5,6 +5,7 @@ import { Key } from './key.entity';
 import { LimitSending } from '../value-objects/limitSending.value-object';
 import { LimitSendingByDaily } from '../value-objects/limitSendingByDaily.object-value';
 import { MakeGenerateLimitSendingDaily } from '../factories/MakeGenerateLImitSendingDaily';
+import { MakeGenerateLimit } from '../factories/MakeGenerateLimitSending';
 
 export class Wallet {
   private _id: string;
@@ -45,6 +46,7 @@ export class Wallet {
     this._keys = props.keys ?? new Key({});
 
     const generateLimitSendingDaily = MakeGenerateLimitSendingDaily.execute();
+    const generateLimitSending = MakeGenerateLimit.execute();
 
     if (!props.limitWithdraw) {
       this.generateLimitWithdraw();
@@ -58,12 +60,9 @@ export class Wallet {
       this._limitWithdrawByDaily = props.limitWithdrawByDaily;
     }
 
-    if (!props.limitSending) {
-      this.generateLimitSending();
-    } else {
-      this._limitSending = props.limitSending;
-    }
-
+    this._limitSending = props.limitSending
+      ? props.limitSending
+      : generateLimitSending.execute(this._typeAccount);
     this._limitSendingByDaily = props.limitSendingByDaily
       ? props.limitSendingByDaily
       : generateLimitSendingDaily.execute(this._typeAccount);
@@ -153,26 +152,6 @@ export class Wallet {
 
   get limitSending(): LimitSending {
     return this._limitSending;
-  }
-
-  generateLimitSending(): void {
-    switch (this._typeAccount) {
-      case 'poupanca':
-        this._limitSending = new LimitSending({
-          limit: 300,
-        });
-        break;
-      case 'corrente':
-        this._limitSending = new LimitSending({
-          limit: 800,
-        });
-        break;
-      case 'empresarial':
-        this._limitSending = new LimitSending({
-          limit: 1500,
-        });
-        break;
-    }
   }
 
   get limitSendingByDaily(): LimitSendingByDaily {
