@@ -7,6 +7,7 @@ import { LimitSendingByDaily } from '../value-objects/limitSendingByDaily.object
 import { MakeGenerateLimitSendingDaily } from '../factories/MakeGenerateLImitSendingDaily';
 import { MakeGenerateLimitSending } from '../factories/MakeGenerateLimitSending';
 import { MakeGenerateLimitWithdraw } from '../factories/MakeGenerateLimitWithdraw';
+import { MakeGenerateLimitWithdrawDaily } from '../factories/MakeGenerateLimitWithdrawDaily';
 
 export class Wallet {
   private _id: string;
@@ -49,13 +50,12 @@ export class Wallet {
     const generateLimitSendingDaily = MakeGenerateLimitSendingDaily.execute();
     const generateLimitSending = MakeGenerateLimitSending.execute();
     const generateLimitWithdraw = MakeGenerateLimitWithdraw.execute();
+    const generateLimitWithdrawByDaily =
+      MakeGenerateLimitWithdrawDaily.execute();
 
-    if (!props.limitWithdrawByDaily) {
-      this.generateLimitWithdrawByDaily();
-    } else {
-      this._limitWithdrawByDaily = props.limitWithdrawByDaily;
-    }
-
+    this._limitWithdrawByDaily = props.limitWithdrawByDaily
+      ? props.limitWithdrawByDaily
+      : generateLimitWithdrawByDaily.execute(this._typeAccount);
     this._limitWithdraw = props.limitWithdraw
       ? props.limitWithdraw
       : generateLimitWithdraw.execute(this._typeAccount);
@@ -94,38 +94,6 @@ export class Wallet {
 
   get limitWithdrawByDaily() {
     return this._limitWithdrawByDaily;
-  }
-
-  generateLimitWithdrawByDaily() {
-    switch (this._typeAccount) {
-      case 'poupanca':
-        this._limitWithdrawByDaily = new LimitWithdrawByDaily({
-          currentLimit: {
-            value: 0,
-            date: null,
-          },
-          limit: 1500,
-        });
-        break;
-      case 'corrente':
-        this._limitWithdrawByDaily = new LimitWithdrawByDaily({
-          currentLimit: {
-            value: 0,
-            date: null,
-          },
-          limit: 4000,
-        });
-        break;
-      case 'empresarial':
-        this._limitWithdrawByDaily = new LimitWithdrawByDaily({
-          currentLimit: {
-            value: 0,
-            date: null,
-          },
-          limit: 6000,
-        });
-        break;
-    }
   }
 
   get limitSending(): LimitSending {
