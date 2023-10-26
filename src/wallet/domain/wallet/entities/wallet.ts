@@ -4,6 +4,7 @@ import { LimitWithdrawByDaily } from './../value-objects/limitWithdrawByDaily.ob
 import { Key } from './key.entity';
 import { LimitSending } from '../value-objects/limitSending.value-object';
 import { LimitSendingByDaily } from '../value-objects/limitSendingByDaily.object-value';
+import { MakeGenerateLimitSendingDaily } from '../factories/MakeGenerateLImitSendingDaily';
 
 export class Wallet {
   private _id: string;
@@ -43,6 +44,8 @@ export class Wallet {
     this._balance = props.balance ?? this._balance;
     this._keys = props.keys ?? new Key({});
 
+    const generateLimitSendingDaily = MakeGenerateLimitSendingDaily.execute();
+
     if (!props.limitWithdraw) {
       this.generateLimitWithdraw();
     } else {
@@ -61,11 +64,9 @@ export class Wallet {
       this._limitSending = props.limitSending;
     }
 
-    if (!props.limitSendingByDaily) {
-      this.generateLimitSendingByDaily();
-    } else {
-      this._limitSendingByDaily = props.limitSendingByDaily;
-    }
+    this._limitSendingByDaily = props.limitSendingByDaily
+      ? props.limitSendingByDaily
+      : generateLimitSendingDaily.execute(this._typeAccount);
   }
 
   get id(): string {
