@@ -104,10 +104,12 @@ export class Wallet {
         this._limitWithdraw = new LimitWithdraw({
           limit: 800,
         });
+        break;
       case 'empresarial':
         this._limitWithdraw = new LimitWithdraw({
           limit: 1500,
         });
+        break;
       default:
         break;
     }
@@ -136,6 +138,7 @@ export class Wallet {
           },
           limit: 4000,
         });
+        break;
       case 'empresarial':
         this._limitWithdrawByDaily = new LimitWithdrawByDaily({
           currentLimit: {
@@ -144,7 +147,6 @@ export class Wallet {
           },
           limit: 6000,
         });
-      default:
         break;
     }
   }
@@ -164,49 +166,17 @@ export class Wallet {
         this._limitSending = new LimitSending({
           limit: 800,
         });
+        break;
       case 'empresarial':
         this._limitSending = new LimitSending({
           limit: 1500,
         });
-      default:
         break;
     }
   }
 
   get limitSendingByDaily(): LimitSendingByDaily {
     return this._limitSendingByDaily;
-  }
-
-  generateLimitSendingByDaily() {
-    switch (this._typeAccount) {
-      case 'poupanca':
-        this._limitSendingByDaily = new LimitSendingByDaily({
-          currentLimit: {
-            value: 0,
-            date: null,
-          },
-          limit: 1500,
-        });
-        break;
-      case 'corrente':
-        this._limitSendingByDaily = new LimitSendingByDaily({
-          currentLimit: {
-            value: 0,
-            date: null,
-          },
-          limit: 4000,
-        });
-      case 'empresarial':
-        this._limitSendingByDaily = new LimitSendingByDaily({
-          currentLimit: {
-            value: 0,
-            date: null,
-          },
-          limit: 6000,
-        });
-      default:
-        break;
-    }
   }
 
   get keys(): Key {

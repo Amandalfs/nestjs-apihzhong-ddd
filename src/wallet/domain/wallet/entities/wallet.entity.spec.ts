@@ -14,7 +14,7 @@ describe('wallet tests units', () => {
     expect(wallet.typeAccount).toEqual('poupanca');
   });
 
-  it('should possible generate limits at account', () => {
+  it('should possible generate limits at account to saving', () => {
     const wallet = new Wallet({
       agency: '001',
       agency_id: '001',
@@ -26,6 +26,20 @@ describe('wallet tests units', () => {
     expect(wallet.limitWithdrawByDaily.limit).toEqual(1500);
     expect(wallet.limitSending.limit).toEqual(300);
     expect(wallet.limitSendingByDaily.limit).toEqual(1500);
+  });
+
+  it('should possible generate limits at account to chain', () => {
+    const wallet = new Wallet({
+      agency: '001',
+      agency_id: '001',
+      typeAccount: 'corrente',
+      customer_id: 'id',
+    });
+
+    expect(wallet.limitWithdraw.limit).toEqual(800);
+    expect(wallet.limitWithdrawByDaily.limit).toEqual(4000);
+    expect(wallet.limitSending.limit).toEqual(800);
+    expect(wallet.limitSendingByDaily.limit).toEqual(4000);
   });
 
   it('should possible deposit the money', () => {
