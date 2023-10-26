@@ -6,6 +6,7 @@ import { LimitSending } from '../value-objects/limitSending.value-object';
 import { LimitSendingByDaily } from '../value-objects/limitSendingByDaily.object-value';
 import { MakeGenerateLimitSendingDaily } from '../factories/MakeGenerateLImitSendingDaily';
 import { MakeGenerateLimitSending } from '../factories/MakeGenerateLimitSending';
+import { MakeGenerateLimitWithdraw } from '../factories/MakeGenerateLimitWithdraw';
 
 export class Wallet {
   private _id: string;
@@ -47,18 +48,17 @@ export class Wallet {
 
     const generateLimitSendingDaily = MakeGenerateLimitSendingDaily.execute();
     const generateLimitSending = MakeGenerateLimitSending.execute();
-
-    if (!props.limitWithdraw) {
-      this.generateLimitWithdraw();
-    } else {
-      this._limitWithdraw = props.limitWithdraw;
-    }
+    const generateLimitWithdraw = MakeGenerateLimitWithdraw.execute();
 
     if (!props.limitWithdrawByDaily) {
       this.generateLimitWithdrawByDaily();
     } else {
       this._limitWithdrawByDaily = props.limitWithdrawByDaily;
     }
+
+    this._limitWithdraw = props.limitWithdraw
+      ? props.limitWithdraw
+      : generateLimitWithdraw.execute(this._typeAccount);
 
     this._limitSending = props.limitSending
       ? props.limitSending
@@ -90,28 +90,6 @@ export class Wallet {
 
   get limitWithdraw(): LimitWithdraw {
     return this._limitWithdraw;
-  }
-
-  generateLimitWithdraw() {
-    switch (this._typeAccount) {
-      case 'poupanca':
-        this._limitWithdraw = new LimitWithdraw({
-          limit: 300,
-        });
-        break;
-      case 'corrente':
-        this._limitWithdraw = new LimitWithdraw({
-          limit: 800,
-        });
-        break;
-      case 'empresarial':
-        this._limitWithdraw = new LimitWithdraw({
-          limit: 1500,
-        });
-        break;
-      default:
-        break;
-    }
   }
 
   get limitWithdrawByDaily() {
