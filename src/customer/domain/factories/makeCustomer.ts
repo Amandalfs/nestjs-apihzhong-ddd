@@ -1,6 +1,6 @@
 import { Customer } from '../entities/customer.entity';
-import { Cpf } from '../value-objects/cpf.value-object';
 import { Email } from '../value-objects/email.value-object';
+import { MakeCpf } from './makeCpf';
 
 interface InputMakeCustomerDTO {
   cpf: string;
@@ -27,29 +27,11 @@ export class MakeCustomer {
     id,
     active,
   }: InputMakeCustomerWithIdDTO) {
-    const cpfNumbers = cpf
-      .replaceAll('.', '')
-      .replaceAll('-', '')
-      .slice(0, 9)
-      .split('')
-      .map((number) => {
-        return Number(number);
-      });
-
-    const cpfCheckDigits = cpf
-      .replaceAll('.', '')
-      .replaceAll('-', '')
-      .slice(9, 11)
-      .split('')
-      .map((digit) => {
-        return Number(digit);
-      });
-
     const customer = new Customer(
       {
         name,
         username,
-        cpf: new Cpf(cpfNumbers, cpfCheckDigits),
+        cpf: MakeCpf.transformCpfByObjectValue({ cpf }),
         email: new Email(email),
         active,
       },
@@ -59,28 +41,10 @@ export class MakeCustomer {
   }
 
   static customer({ cpf, email, name, username }: InputMakeCustomerDTO) {
-    const cpfNumbers = cpf
-      .replaceAll('.', '')
-      .replaceAll('-', '')
-      .slice(0, 9)
-      .split('')
-      .map((number) => {
-        return Number(number);
-      });
-
-    const cpfCheckDigits = cpf
-      .replaceAll('.', '')
-      .replaceAll('-', '')
-      .slice(9, 11)
-      .split('')
-      .map((digit) => {
-        return Number(digit);
-      });
-
     const customer = new Customer({
       name,
       username,
-      cpf: new Cpf(cpfNumbers, cpfCheckDigits),
+      cpf: MakeCpf.transformCpfByObjectValue({ cpf }),
       email: new Email(email),
     });
     return customer;
