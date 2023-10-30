@@ -17,6 +17,12 @@ enum RulesAuth {
   adminWallet
 }
 
+enum TypeAcount {
+  poupanca
+  corrente
+  empresarial
+}
+
 model AuthUser {
   id         String    @id
   email      String    @unique
@@ -34,10 +40,41 @@ model Customer {
   email    String
   active   Boolean   @default(false)
   AuthUser AuthUser?
+  Wallet   Wallet[]
 }
 
 model Agency {
-  id     String @id
+  id     String   @id
   name   String
-  number String @unique
+  number String   @unique
+  Wallet Wallet[]
+}
+
+model Wallet {
+  id          String   @id
+  customer_id String
+  customer    Customer @relation(fields: [customer_id], references: [id])
+
+  agency    String
+  agency_id String
+  agencyTo  Agency @relation(fields: [agency_id], references: [id])
+
+  typeAccount TypeAcount
+  balance     Float
+
+  limitWithdraw Float
+
+  LimitWithdrawByDaily   Float
+  currentWithdrawByDaily Float
+  dateWithdrawByDaily    DateTime
+
+  limitSending Float
+
+  LimitSendingByDaily   Float
+  currentSendingByDaily Float
+  dateSendingByDaily    DateTime
+
+  keyCpf    String @unique
+  keyEmail  String @unique
+  keyRandom String @unique
 }
