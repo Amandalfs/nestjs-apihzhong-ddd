@@ -24,6 +24,10 @@ import { AgencyRepositoryInterface } from '@/wallet/domain/agency/repositories/a
       useClass: AgencyRepository,
     },
   ],
-  exports: [AuthUserRepositoryInterface],
+  exports: [
+    AuthUserRepositoryInterface,
+    AgencyRepositoryInterface,
+    CustomerRepositoryInterface,
+  ],
 })
 export class InfraModule {}
