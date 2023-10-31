@@ -54,4 +54,8 @@ export class LimitSendingByDaily {
   get limit(): number {
     return this._limit;
   }
+
+  get currentLimit() {
+    return this._currentLimit;
+  }
 }

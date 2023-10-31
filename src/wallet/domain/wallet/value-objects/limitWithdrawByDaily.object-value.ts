@@ -51,6 +51,10 @@ export class LimitWithdrawByDaily {
     this._currentLimit.date = null;
   }
 
+  get currentLimit() {
+    return this._currentLimit;
+  }
+
   get limit(): number {
     return this._limit;
   }
