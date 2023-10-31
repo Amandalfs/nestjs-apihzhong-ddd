@@ -17,7 +17,7 @@ enum RulesAuth {
   adminWallet
 }
 
-enum TypeAcount {
+enum TypeAccount {
   poupanca
   corrente
   empresarial
@@ -51,30 +51,30 @@ model Agency {
 }
 
 model Wallet {
-  id          String   @id
-  customer_id String
-  customer    Customer @relation(fields: [customer_id], references: [id])
+  id         String   @id
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id])
 
-  agency    String
-  agency_id String
-  agencyTo  Agency @relation(fields: [agency_id], references: [id])
+  agency   String
+  agencyId String
+  agencyTo Agency @relation(fields: [agencyId], references: [id])
 
-  typeAccount TypeAcount
+  typeAccount TypeAccount
   balance     Float
 
   limitWithdraw Float
 
   LimitWithdrawByDaily   Float
   currentWithdrawByDaily Float
-  dateWithdrawByDaily    DateTime
+  dateWithdrawByDaily    DateTime?
 
   limitSending Float
 
   LimitSendingByDaily   Float
   currentSendingByDaily Float
-  dateSendingByDaily    DateTime
+  dateSendingByDaily    DateTime?
 
-  keyCpf    String @unique
-  keyEmail  String @unique
-  keyRandom String @unique
+  keyCpf    String? @unique
+  keyEmail  String? @unique
+  keyRandom String? @unique
 }
