@@ -84,6 +84,10 @@ export class Wallet {
     return this._agency;
   }
 
+  get agencyId(): string {
+    return this._agency_id;
+  }
+
   get typeAccount(): 'poupanca' | 'corrente' | 'empresarial' {
     return this._typeAccount;
   }
