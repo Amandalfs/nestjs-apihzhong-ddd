@@ -6,6 +6,8 @@ import { AuthUserRepositoryInterface } from '@/auth-user/domain/repositories/aut
 import { CustomerRepositoryInterface } from '@/customer/domain/repositories/repository-customer';
 import { AgencyRepository } from './agency.repository/agency.repository';
 import { AgencyRepositoryInterface } from '@/wallet/domain/agency/repositories/agency.repository.interface';
+import { WalletRepository } from './wallet.repository/wallet.repository';
+import { WalletRepositoryInterface } from '@/wallet/domain/wallet/repositories/walletRepository';
 
 @Module({
   imports: [],
@@ -23,10 +25,15 @@ import { AgencyRepositoryInterface } from '@/wallet/domain/agency/repositories/a
       provide: AgencyRepositoryInterface,
       useClass: AgencyRepository,
     },
+    {
+      provide: WalletRepositoryInterface,
+      useClass: WalletRepository,
+    },
   ],
   exports: [
     AuthUserRepositoryInterface,
     AgencyRepositoryInterface,
+    WalletRepositoryInterface,
     CustomerRepositoryInterface,
   ],
 })
