@@ -3,16 +3,13 @@ import { randomUUID } from 'crypto';
 export type KeyType = 'email' | 'random' | 'cpf';
 
 export class Key {
-  private _id: string;
   private _keyEmail: string | null;
   private _keyRandom: string | null;
   private _keyCpf: string | null;
 
   constructor(
     props: Partial<{ keyEmail: string; keyRandom: string; keyCpf: string }>,
-    id?: string,
   ) {
-    this._id = id ?? randomUUID();
     this._keyCpf = props.keyCpf ?? null;
     this._keyEmail = props.keyEmail ?? null;
     this._keyRandom = props.keyRandom ?? null;
@@ -46,10 +43,6 @@ export class Key {
 
   deleteKeyRandom(): void {
     this._keyRandom = null;
-  }
-
-  get id(): string {
-    return this._id;
   }
 
   get keyEmail(): string {

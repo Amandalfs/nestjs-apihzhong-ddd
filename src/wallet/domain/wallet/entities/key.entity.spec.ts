@@ -6,7 +6,6 @@ describe('key entinty tests units', () => {
     key.addKeyEmail('email@email.com');
 
     expect(key.keyEmail).toEqual('email@email.com');
-    expect(key.id).toBeDefined();
   });
 
   it('should be possible throw error with the mandatory email error.', () => {
@@ -21,7 +20,6 @@ describe('key entinty tests units', () => {
     key.addKeyCpf('123.456.789-11');
 
     expect(key.keyCpf).toEqual('123.456.789-11');
-    expect(key.id).toBeDefined();
   });
 
   it('should be possible throw error with the mandatory cpf error.', () => {
@@ -37,7 +35,6 @@ describe('key entinty tests units', () => {
 
     expect(key.keyRandom).toBeDefined();
     expect(key.keyRandom.length).toBeGreaterThan(1);
-    expect(key.id).toBeDefined();
   });
 
   it('should delete key by email', () => {
@@ -46,7 +43,6 @@ describe('key entinty tests units', () => {
     key.deleteKeyEmail();
 
     expect(key.keyEmail).toEqual(null);
-    expect(key.id).toBeDefined();
   });
 
   it('should delete key by cpf', () => {
@@ -55,7 +51,6 @@ describe('key entinty tests units', () => {
     key.deleteKeyCpf();
 
     expect(key.keyCpf).toEqual(null);
-    expect(key.id).toBeDefined();
   });
 
   it('should delete key by random', () => {
@@ -64,6 +59,5 @@ describe('key entinty tests units', () => {
     key.deleteKeyRandom();
 
     expect(key.keyRandom).toEqual(null);
-    expect(key.id).toBeDefined();
   });
 });
