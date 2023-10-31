@@ -16,6 +16,8 @@ const config: Config = {
     '.github',
     '.husky',
   ],
+  testTimeout: 10000,
+  bail: true,
   moduleNameMapper: {
     '@/(.*)': '<rootDir>/src/$1',
   },
