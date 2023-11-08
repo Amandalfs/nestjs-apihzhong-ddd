@@ -18,6 +18,8 @@ export class FindCustomerUseCase {
       id: customer.id,
       name: customer.name,
       username: customer.username,
+      email: customer.email,
+      cpf: customer.cpf.cpfFormatted,
     };
   }
 }

@@ -6,4 +6,6 @@ export interface OutputFindCustomerUseCaeDto {
   id: string;
   name: string;
   username: string;
+  email: string;
+  cpf: string;
 }

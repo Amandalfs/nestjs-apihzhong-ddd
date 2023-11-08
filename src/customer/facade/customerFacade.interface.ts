@@ -1,4 +1,4 @@
-interface OutputfindByIdDto {
+export interface OutputfindByIdFacadeDto {
   id: string;
   email: string;
   name: string;
@@ -6,5 +6,5 @@ interface OutputfindByIdDto {
 }
 
 export abstract class CustomerFacadeInterface {
-  abstract findById(id: string): Promise<OutputfindByIdDto>;
+  abstract findById(id: string): Promise<OutputfindByIdFacadeDto>;
 }
