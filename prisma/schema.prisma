@@ -74,7 +74,18 @@ model Wallet {
   currentSendingByDaily Float
   dateSendingByDaily    DateTime?
 
-  keyCpf    String? @unique
-  keyEmail  String? @unique
-  keyRandom String? @unique
+  keyCpf    String?   @unique
+  keyEmail  String?   @unique
+  keyRandom String?   @unique
+  Extract   Extract[]
+}
+
+model Extract {
+  id          String   @id
+  description String
+  type        String
+  created_at  DateTime
+  value       Float
+  wallet      Wallet   @relation(fields: [walletId], references: [id])
+  walletId    String
 }
