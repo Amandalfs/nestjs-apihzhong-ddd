@@ -8,6 +8,8 @@ import { AgencyRepository } from './agency.repository/agency.repository';
 import { AgencyRepositoryInterface } from '@/wallet/domain/agency/repositories/agency.repository.interface';
 import { WalletRepository } from './wallet.repository/wallet.repository';
 import { WalletRepositoryInterface } from '@/wallet/domain/wallet/repositories/walletRepository';
+import { ExtractRepository } from './extract.repository/extract.repository';
+import { ExtractRepositoryInterface } from '@/wallet/domain/wallet/repositories/extractRepository';
 
 @Module({
   imports: [],
@@ -29,12 +31,17 @@ import { WalletRepositoryInterface } from '@/wallet/domain/wallet/repositories/w
       provide: WalletRepositoryInterface,
       useClass: WalletRepository,
     },
+    {
+      provide: ExtractRepositoryInterface,
+      useClass: ExtractRepository,
+    },
   ],
   exports: [
     AuthUserRepositoryInterface,
     AgencyRepositoryInterface,
     WalletRepositoryInterface,
     CustomerRepositoryInterface,
+    ExtractRepositoryInterface,
   ],
 })
 export class InfraModule {}
