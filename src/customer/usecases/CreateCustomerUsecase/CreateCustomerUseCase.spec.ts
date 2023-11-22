@@ -1,6 +1,8 @@
+import { EventDispatcher } from '../../domain/events/eventDispatcher';
 import { MakeCustomer } from '../../domain/factories/makeCustomer';
 import { CustomerRepositoryInterface } from '../../domain/repositories/repository-customer';
 import { CreateCustomerUseCase } from './CreateCustomerUseCase';
+import { CreateCredencialsHandler } from '../../domain/events/CreateCredencialsHandler';
 
 interface TypeSuit {
   customerRepository: CustomerRepositoryInterface;
@@ -18,7 +20,18 @@ const makeSuit = (): TypeSuit => {
     findAll: jest.fn(),
   };
 
-  const suit = new CreateCustomerUseCase(customerRepository);
+  const AuthUserFacade = {
+    createUserAuth: jest.fn(),
+  };
+
+  const eventDispatcher = new EventDispatcher();
+  const eventHadler = new CreateCredencialsHandler(AuthUserFacade);
+
+  const suit = new CreateCustomerUseCase(
+    customerRepository,
+    eventDispatcher,
+    eventHadler,
+  );
   return {
     suit,
     customerRepository,

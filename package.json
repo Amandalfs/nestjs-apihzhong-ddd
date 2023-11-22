@@ -72,7 +72,7 @@
       "**/*.(t|j)s"
     ],
     "moduleNameMapper": {
-      "@/(.*)": "<rootDir>/src/$1"
+      "@/(.*)": "<rootDir>/$1"
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"

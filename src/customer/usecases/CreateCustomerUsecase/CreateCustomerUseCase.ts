@@ -5,14 +5,25 @@ import {
   OutputCreateCustomerDto,
 } from './CreateCustomerUseCase.dto';
 import { Injectable } from '@nestjs/common';
+import { EventDispatcherInterface } from '@/@shared/events/eventDispatcher.interface';
+import { CreateCredencialsHandler } from './../../domain/events/CreateCredencialsHandler';
+import { CreateCredencialsEvent } from '@/customer/domain/events/CreateCredencials';
 
 @Injectable()
 export class CreateCustomerUseCase {
-  constructor(private customerRepository: CustomerRepositoryInterface) {}
+  constructor(
+    private customerRepository: CustomerRepositoryInterface,
+    private eventDispatcher: EventDispatcherInterface,
+    private createCredencialsHandler: CreateCredencialsHandler,
+  ) {}
 
   async execute(
     input: InputCreateCustomerDto,
   ): Promise<OutputCreateCustomerDto> {
+    this.eventDispatcher.register(
+      'CreateCredencialsEvent',
+      this.createCredencialsHandler,
+    );
     const emailAlreadyExists = await this.customerRepository.findByEmail(
       input.email,
     );
@@ -43,6 +54,14 @@ export class CreateCustomerUseCase {
     });
 
     await this.customerRepository.create(customer);
+
+    const createCrendencialsEvent = new CreateCredencialsEvent({
+      customerId: customer.id,
+      email: customer.email,
+      password: input.password,
+    });
+
+    this.eventDispatcher.notify(createCrendencialsEvent);
 
     return {
       id: customer.id,

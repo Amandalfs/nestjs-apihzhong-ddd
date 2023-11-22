@@ -30,6 +30,8 @@ model AuthUser {
   rules      RulesAuth @default(member)
   customerOn Customer? @relation(fields: [customerId], references: [id])
   customerId String?   @unique
+  walletOn   Wallet?   @relation(fields: [walletId], references: [id])
+  walletId   String?   @unique
 }
 
 model Customer {
@@ -78,6 +80,7 @@ model Wallet {
   keyEmail  String?   @unique
   keyRandom String?   @unique
   Extract   Extract[]
+  AuthUser  AuthUser?
 }
 
 model Extract {
