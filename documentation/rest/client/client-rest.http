@@ -1,0 +1,111 @@
+@baseUrl = http://localhost:3000/api-rest
+
+# @name create_customer
+POST {{baseUrl}}/customers
+Content-Type:  application/json
+
+{
+    "username": "amandalfs",
+    "email": "amandabraba@hzhong.com",
+    "password": "12345678",
+    "name": "amanda",
+    "cpf": "123.456.789-11"
+}
+
+###
+
+# @name create_session
+POST {{baseUrl}}/sessions
+Content-Type:  application/json
+
+{
+    "email": "amandabraba@hzhong.com",
+    "password": "12345678"
+}
+
+###
+
+# @name deposit_money
+POST {{baseUrl}}/sessions
+Content-Type:  application/json
+
+{
+    "email": "amandabraba@hzhong.com",
+    "password": "12345678"
+}
+
+###
+
+
+# @name active_customer
+
+POST {{baseUrl}}/customers/active
+Content-Type:  application/json
+
+###
+
+
+
+# @name deposit_money
+
+POST {{baseUrl}}/transactions/deposit
+Content-Type:  application/json
+
+{
+    "value": 500
+}
+
+###
+
+# @name withdraw_money
+
+POST {{baseUrl}}/transactions/withdraw
+Content-Type:  application/json
+
+{
+    "value": 500
+}
+
+###
+
+# @name sending_money
+
+POST {{baseUrl}}/transactions/withdraw
+Content-Type:  application/json
+
+{
+    "key": "vnsdvbsd0bs0v0dfvb",
+    "value": 500
+}
+
+###
+
+
+
+
+# @name create_key
+
+POST {{baseUrl}}/transactions/create_key
+Content-Type:  application/json
+
+{
+    "typeKey": "email"
+}
+
+###
+
+# @name delete_key
+
+DELETE {{baseUrl}}/transactions/delete_key
+Content-Type:  application/json
+
+{
+    "typeKey": "email"
+}
+
+###
+
+
+
+
+

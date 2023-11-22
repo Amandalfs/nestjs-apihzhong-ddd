@@ -1,0 +1,25 @@
+@baseUrl = http://localhost:3000/api-rest
+
+# @name create_admin_suport_agency
+
+POST {{baseUrl}}/agency/create_admin
+Content-Type:  application/json
+
+{
+    "email": "adminAgency@hzhong.com",
+    "password": "12345678"
+}
+
+###
+
+# @name create_agency
+
+POST {{baseUrl}}/agency
+Content-Type:  application/json
+
+{
+    "name": "Hzhong Agency SP",
+    "number": "001"
+}
+
+###
