@@ -6,13 +6,13 @@ import { AuthUserFacadeInterface } from './facade/authUserFacade.interface';
 
 @Module({
   imports: [InfraModule],
-  providers: [CreateAuthUserUseCase, AuthUserFacade],
-  exports: [
+  providers: [
     CreateAuthUserUseCase,
     {
       provide: AuthUserFacadeInterface,
       useClass: AuthUserFacade,
     },
   ],
+  exports: [CreateAuthUserUseCase, AuthUserFacadeInterface],
 })
 export class AuthUserModule {}

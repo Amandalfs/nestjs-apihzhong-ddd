@@ -8,9 +8,10 @@ import { CustomerFacade } from './facade/customerFacade';
 import { EventDispatcher } from './domain/events/eventDispatcher';
 import { CreateCredencialsHandler } from './domain/events/CreateCredencialsHandler';
 import { EventDispatcherInterface } from './../@shared/events/eventDispatcher.interface';
+import { AuthUserModule } from '@/auth-user/auth-user.module';
 
 @Module({
-  imports: [InfraModule],
+  imports: [InfraModule, AuthUserModule],
   providers: [
     ActivateCustomerUseCase,
     CreateCustomerUseCase,
