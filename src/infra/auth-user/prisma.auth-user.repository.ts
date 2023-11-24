@@ -16,6 +16,7 @@ export class AuthUserRepository implements AuthUserRepositoryInterface {
         id: entity.id,
         password: entity.password,
         rules: entity.rule as Rules,
+        customerId: entity.customer_id ?? null,
       },
     });
   }
@@ -39,24 +40,8 @@ export class AuthUserRepository implements AuthUserRepositoryInterface {
         id,
       },
     });
-    const authUser = new AuthUser(
-      {
-        email: user.email,
-        password: user.password,
-        customerId: '',
-        rule: user.rules,
-        hash: false,
-      },
-      user.id,
-    );
-    return authUser;
-  }
-
-  async findAll(): Promise<AuthUser[]> {
-    const users = await this.prisma.authUser.findMany();
-    const authUsers = users.map(
-      (user) =>
-        new AuthUser(
+    const authUser = user
+      ? new AuthUser(
           {
             email: user.email,
             password: user.password,
@@ -65,8 +50,28 @@ export class AuthUserRepository implements AuthUserRepositoryInterface {
             hash: false,
           },
           user.id,
-        ),
-    );
+        )
+      : null;
+    return authUser;
+  }
+
+  async findAll(): Promise<AuthUser[]> {
+    const users = await this.prisma.authUser.findMany();
+    const authUsers = users
+      ? users.map(
+          (user) =>
+            new AuthUser(
+              {
+                email: user.email,
+                password: user.password,
+                customerId: '',
+                rule: user.rules,
+                hash: false,
+              },
+              user.id,
+            ),
+        )
+      : null;
     return authUsers;
   }
 
@@ -77,16 +82,18 @@ export class AuthUserRepository implements AuthUserRepositoryInterface {
       },
     });
 
-    const authUser = new AuthUser(
-      {
-        email: user.email,
-        password: user.password,
-        customerId: '',
-        rule: user.rules,
-        hash: false,
-      },
-      user.id,
-    );
+    const authUser = user
+      ? new AuthUser(
+          {
+            email: user.email,
+            password: user.password,
+            customerId: '',
+            rule: user.rules,
+            hash: false,
+          },
+          user.id,
+        )
+      : null;
 
     return authUser;
   }

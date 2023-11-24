@@ -58,14 +58,16 @@ export class CustomerRepository implements CustomerRepositoryInterface {
         email,
       },
     });
-    return MakeCustomer.customerWithId({
-      id: customer.id,
-      cpf: customer.cpf,
-      email: customer.email,
-      name: customer.name,
-      username: customer.username,
-      active: customer.active,
-    });
+    return customer
+      ? MakeCustomer.customerWithId({
+          id: customer.id,
+          cpf: customer.cpf,
+          email: customer.email,
+          name: customer.name,
+          username: customer.username,
+          active: customer.active,
+        })
+      : null;
   }
 
   async findByUsername(username: string): Promise<Customer> {
@@ -74,14 +76,16 @@ export class CustomerRepository implements CustomerRepositoryInterface {
         username,
       },
     });
-    return MakeCustomer.customerWithId({
-      id: customer.id,
-      cpf: customer.cpf,
-      email: customer.email,
-      name: customer.name,
-      username: customer.username,
-      active: customer.active,
-    });
+    return customer
+      ? MakeCustomer.customerWithId({
+          id: customer.id,
+          cpf: customer.cpf,
+          email: customer.email,
+          name: customer.name,
+          username: customer.username,
+          active: customer.active,
+        })
+      : null;
   }
 
   async findByCpf(cpf: string): Promise<Customer> {
@@ -90,27 +94,32 @@ export class CustomerRepository implements CustomerRepositoryInterface {
         cpf,
       },
     });
-    return MakeCustomer.customerWithId({
-      id: customer.id,
-      cpf: customer.cpf,
-      email: customer.email,
-      name: customer.name,
-      username: customer.username,
-      active: customer.active,
-    });
+
+    return customer
+      ? MakeCustomer.customerWithId({
+          id: customer.id,
+          cpf: customer.cpf,
+          email: customer.email,
+          name: customer.name,
+          username: customer.username,
+          active: customer.active,
+        })
+      : null;
   }
 
   async findAll(): Promise<Customer[]> {
     const customers = await this.prisma.customer.findMany();
-    return customers.map((customer) =>
-      MakeCustomer.customerWithId({
-        id: customer.id,
-        cpf: customer.cpf,
-        email: customer.email,
-        name: customer.name,
-        username: customer.username,
-        active: customer.active,
-      }),
-    );
+    return customers
+      ? customers.map((customer) =>
+          MakeCustomer.customerWithId({
+            id: customer.id,
+            cpf: customer.cpf,
+            email: customer.email,
+            name: customer.name,
+            username: customer.username,
+            active: customer.active,
+          }),
+        )
+      : null;
   }
 }
