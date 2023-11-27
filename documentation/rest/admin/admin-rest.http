@@ -23,3 +23,15 @@ Content-Type:  application/json
 }
 
 ###
+
+# @name create_agency
+
+POST {{baseUrl}}/agency/sessions
+Content-Type:  application/json
+
+{
+    "email": "adminAgency@hzhong.com",
+    "password": "12345678"
+}
+
+###

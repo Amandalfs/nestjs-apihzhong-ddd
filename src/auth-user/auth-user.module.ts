@@ -6,6 +6,7 @@ import { AuthUserFacadeInterface } from './facade/authUserFacade.interface';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
+import { CreateAdminSupportAgencyUseCase } from './usecases/CreateAdminSupportAgency/CreateAdminSupportAgencyUseCase';
 
 @Module({
   imports: [
@@ -30,11 +31,16 @@ import { ConfigService } from '@nestjs/config';
   ],
   providers: [
     CreateAuthUserUseCase,
+    CreateAdminSupportAgencyUseCase,
     {
       provide: AuthUserFacadeInterface,
       useClass: AuthUserFacade,
     },
   ],
-  exports: [CreateAuthUserUseCase, AuthUserFacadeInterface],
+  exports: [
+    CreateAuthUserUseCase,
+    AuthUserFacadeInterface,
+    CreateAdminSupportAgencyUseCase,
+  ],
 })
 export class AuthUserModule {}
