@@ -10,13 +10,14 @@ export class AuthUserRepository implements AuthUserRepositoryInterface {
   constructor(private prisma: PrismaService) {}
 
   async create(entity: AuthUser): Promise<void> {
+    const { email, id, password, rule, customer_id: customerId } = entity;
     await this.prisma.authUser.create({
       data: {
-        email: entity.email,
-        id: entity.id,
-        password: entity.password,
-        rules: entity.rule as Rules,
-        customerId: entity.customer_id ?? null,
+        email,
+        id,
+        password,
+        rules: rule as Rules,
+        customerId,
       },
     });
   }

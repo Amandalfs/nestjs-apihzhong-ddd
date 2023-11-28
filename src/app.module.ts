@@ -14,7 +14,6 @@ import { HttpsModule } from './https/https.module';
     InfraModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
     }),
     HttpsModule,
   ],

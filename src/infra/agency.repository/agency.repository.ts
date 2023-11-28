@@ -36,13 +36,15 @@ export class AgencyRepository implements AgencyRepositoryInterface {
       },
     });
 
-    return new Agency(
-      {
-        name: agency.name,
-        number: agency.number,
-      },
-      agency.id,
-    );
+    return agency
+      ? new Agency(
+          {
+            name: agency.name,
+            number: agency.number,
+          },
+          agency.id,
+        )
+      : null;
   }
 
   async findByNumber(number: string): Promise<Agency> {
@@ -52,26 +54,30 @@ export class AgencyRepository implements AgencyRepositoryInterface {
       },
     });
 
-    return new Agency(
-      {
-        name: agency.name,
-        number: agency.number,
-      },
-      agency.id,
-    );
-  }
-
-  async findAll(): Promise<Agency[]> {
-    const agencies = await this.prisma.agency.findMany();
-    return agencies.map(
-      (agency) =>
-        new Agency(
+    return agency
+      ? new Agency(
           {
             name: agency.name,
             number: agency.number,
           },
           agency.id,
-        ),
-    );
+        )
+      : null;
+  }
+
+  async findAll(): Promise<Agency[]> {
+    const agencies = await this.prisma.agency.findMany();
+    return agencies
+      ? agencies.map(
+          (agency) =>
+            new Agency(
+              {
+                name: agency.name,
+                number: agency.number,
+              },
+              agency.id,
+            ),
+        )
+      : null;
   }
 }
