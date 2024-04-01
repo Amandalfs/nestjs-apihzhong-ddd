@@ -7,6 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 import { CreateAdminSupportAgencyUseCase } from './usecases/CreateAdminSupportAgency/CreateAdminSupportAgencyUseCase';
+import { CreateAdminSupportSessionsUseCase } from './usecases/CreateAdminSupportSessions/CreateAdminSupportSessionsUseCase';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { CreateAdminSupportAgencyUseCase } from './usecases/CreateAdminSupportAg
   providers: [
     CreateAuthUserUseCase,
     CreateAdminSupportAgencyUseCase,
+    CreateAdminSupportSessionsUseCase,
     {
       provide: AuthUserFacadeInterface,
       useClass: AuthUserFacade,
@@ -41,6 +43,7 @@ import { CreateAdminSupportAgencyUseCase } from './usecases/CreateAdminSupportAg
     CreateAuthUserUseCase,
     AuthUserFacadeInterface,
     CreateAdminSupportAgencyUseCase,
+    CreateAdminSupportSessionsUseCase,
   ],
 })
 export class AuthUserModule {}

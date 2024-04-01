@@ -5,6 +5,7 @@ import { Module } from '@nestjs/common';
 import { CreateCustomerController } from './create-customer/create-customer.controller';
 import { CreateAdminSupportAgencyController } from './create-admin-support-agency/create-admin-support-agency.controller';
 import { CreateAgencyController } from './create-agency/create-agency.controller';
+import { SessionsAdminSupportController } from './sessions-admin-support/sessions-admin-support.controller';
 
 @Module({
   imports: [AuthUserModule, CustomerModule, WalletModule],
@@ -12,6 +13,7 @@ import { CreateAgencyController } from './create-agency/create-agency.controller
     CreateCustomerController,
     CreateAdminSupportAgencyController,
     CreateAgencyController,
+    SessionsAdminSupportController,
   ],
 })
 export class HttpsModule {}
