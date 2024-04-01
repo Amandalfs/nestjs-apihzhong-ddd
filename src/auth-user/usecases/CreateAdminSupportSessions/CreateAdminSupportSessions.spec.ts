@@ -1,6 +1,7 @@
 import { AuthUserRepositoryInterface } from '@/auth-user/domain/repositories/authUserRepositoryInterface';
 import { CreateAdminSupportSessionsUseCase } from './CreateAdminSupportSessionsUseCase';
 import { AuthUser } from './../../domain/entities/authUser.entity';
+import { JwtService } from '@nestjs/jwt';
 
 interface TypeSuit {
   authUserRepository: AuthUserRepositoryInterface;
@@ -26,7 +27,12 @@ const makeSuit = (): TypeSuit => {
     findAll: jest.fn(),
   };
 
-  const suit = new CreateAdminSupportSessionsUseCase(authUserRepository);
+  const jwt = new JwtService({
+    secret: '421vdfbndafp',
+    signOptions: { expiresIn: '8h' },
+  });
+
+  const suit = new CreateAdminSupportSessionsUseCase(authUserRepository, jwt);
   return {
     suit,
     authUserRepository,
