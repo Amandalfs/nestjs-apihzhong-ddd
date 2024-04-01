@@ -3,10 +3,12 @@ import {
   InputCreateAdminSupportSessionsUseCaseDto,
   OutputCreateAdminSupportSessionsUseCaseDto,
 } from './CreateAdminSupportSessionsUseCase.dto';
+import { JwtService } from '@nestjs/jwt';
 
 export class CreateAdminSupportSessionsUseCase {
   constructor(
     private authUserRepositoryInterface: AuthUserRepositoryInterface,
+    private jwt: JwtService,
   ) {}
 
   async execute({
@@ -22,12 +24,14 @@ export class CreateAdminSupportSessionsUseCase {
 
     const isPasswordValid = adminSupportAlreadyExist.checkPassword(password);
 
+    const token = await this.jwt.signAsync({ sub: 'user-id' });
+
     if (!isPasswordValid) {
       throw new Error('The credentials are invalid.');
     }
 
     return {
-      token: 'dvnsbvsobvspvn',
+      token,
     };
   }
 }
