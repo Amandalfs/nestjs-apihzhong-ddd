@@ -24,7 +24,7 @@ Content-Type:  application/json
 
 ###
 
-# @name create_agency
+# @name create_session
 
 POST {{baseUrl}}/agency/sessions
 Content-Type:  application/json

@@ -6,6 +6,7 @@ import { CreateCustomerController } from './create-customer/create-customer.cont
 import { CreateAdminSupportAgencyController } from './create-admin-support-agency/create-admin-support-agency.controller';
 import { CreateAgencyController } from './create-agency/create-agency.controller';
 import { SessionsAdminSupportController } from './sessions-admin-support/sessions-admin-support.controller';
+import { SessionsCustomerController } from './create-session-account/create-session-account.controller';
 
 @Module({
   imports: [AuthUserModule, CustomerModule, WalletModule],
@@ -14,6 +15,7 @@ import { SessionsAdminSupportController } from './sessions-admin-support/session
     CreateAdminSupportAgencyController,
     CreateAgencyController,
     SessionsAdminSupportController,
+    SessionsCustomerController,
   ],
 })
 export class HttpsModule {}
